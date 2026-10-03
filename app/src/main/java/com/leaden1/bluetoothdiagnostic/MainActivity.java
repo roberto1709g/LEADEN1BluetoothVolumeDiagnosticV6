@@ -66,10 +66,10 @@ public class MainActivity extends Activity {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (AudioManager.ACTION_VOLUME_CHANGED_ACTION.equals(action)) {
-                int stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1);
-                int vol = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_VALUE, -1);
-                int prev = intent.getIntExtra(AudioManager.EXTRA_PREV_VOLUME_STREAM_VALUE, -1);
+            if ("android.media.VOLUME_CHANGED_ACTION".equals(action)) {
+                int stream = intent.getIntExtra("android.media.EXTRA_VOLUME_STREAM_TYPE", -1);
+                int vol = intent.getIntExtra("android.media.EXTRA_VOLUME_STREAM_VALUE", -1);
+                int prev = intent.getIntExtra("android.media.EXTRA_PREV_VOLUME_STREAM_VALUE", -1);
                 log("VOLUME_BROADCAST stream=" + stream + " " + prev + " -> " + vol);
                 lastVolume = vol;
                 updateVolume();
@@ -139,7 +139,7 @@ public class MainActivity extends Activity {
 
     private void registerReceivers() {
         IntentFilter f = new IntentFilter();
-        f.addAction(AudioManager.ACTION_VOLUME_CHANGED_ACTION);
+        f.addAction("android.media.VOLUME_CHANGED_ACTION");
         f.addAction(BluetoothA2dp.ACTION_CONNECTION_STATE_CHANGED);
         f.addAction(BluetoothA2dp.ACTION_PLAYING_STATE_CHANGED);
         f.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
